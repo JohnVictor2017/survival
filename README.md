@@ -28,3 +28,7 @@ source ~/.bashrc
 \$ cd project/
 
 \$ php artisan serve
+
+# Challenge the ZSSN (Zombie Survival Social Network)
+
+[GitHub Gist](https://gist.github.com/mauricioklein/1b1f279ad2d9cb42bcf0018e1cf05cfb)
