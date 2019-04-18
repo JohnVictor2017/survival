@@ -17,6 +17,11 @@ class CreateLocationsTable extends Migration
             $table->bigIncrements('id');
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
+            $table->integer('person_id')->unsigned();
+
+            $table->foreign('person_id')
+                ->references('id')->on('people')
+                ->onDelete('cascade');
         });
     }
 

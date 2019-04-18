@@ -15,6 +15,12 @@ class CreateBagsTable extends Migration
     {
         Schema::create('bags', function (Blueprint $table) {
             $table->bigIncrements('id');
+
+            $table->integer('person_id')->unsigned();
+
+            $table->foreign('person_id')
+                ->references('id')->on('people')
+                ->onDelete('cascade');
         });
     }
 

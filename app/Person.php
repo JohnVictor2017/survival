@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class People extends Model
+class Person extends Model
 {
+    protected $table = 'people';
+
     protected $fillable = ['name', 'age', 'sex']; 
 
     public function bag()
