@@ -17,4 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('people', 'PeopleController', ['except' => ['show','create', 'edit', 'update', 'destroy']]);
+Route::get('/people', 'PersonController@getPeople');
+Route::post('/people', 'PersonController@createPerson');
+Route::get('/people/{person}/report', 'PersonController@reportInfected');

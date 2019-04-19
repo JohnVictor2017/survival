@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+
+use Symfony\Component\HttpFoundation\Response;
+
+use App\Person;
 
 class PersonController extends Controller
 {
@@ -11,9 +16,9 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getPeople()
     {
-        //
+        return Person::orderBy('id', 'ASC')->get();
     }
 
     /**
@@ -22,21 +27,45 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function createPerson(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'age' => 'required',
+            'sex' => [
+                'required',
+                Rule::in(['M', 'F']),
+            ]
+        ]);
+
+        /*
+        if($validator->fails()){
+            $errors = $validation->errors();
+            return $errors->toJson();
+        }else{
+            return Person::create([
+                'name' => $request->get('name'),
+                'age' => $request->get('age'),
+                'sex' => $request->get('sex'),
+            ]);
+        }
+        */
+
+        return Person::create($request->all());
     }
 
     /**
-     * Update the specified resource in storage.
+     * Report a infected person.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function reportInfected(Person $person)
     {
-        //
+        $person->flags++;
+        $person->save();
+     
+        return response('', 204)
+                  ->header('Content-Type', 'text/plain');
     }
 
     /**
