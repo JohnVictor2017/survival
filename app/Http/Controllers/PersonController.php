@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Collection;
 
 use Symfony\Component\HttpFoundation\Response;
 
 use App\Person;
+use App\Bag;
 
 class PersonController extends Controller
 {
@@ -51,7 +53,17 @@ class PersonController extends Controller
         }
         */
 
-        return Person::create($request->all());
+        $person = Person::create($request->all());
+        
+        $bag = new Bag;
+        $bag->person_id = $person->id;
+        $bag->save();
+
+        // TODO retornar da seguinte forma => {'name': pessoa, ..., 'bag' : {'id': 1, ...}}
+        $collection = collect(['person' => $person, 'bag' => $bag]);
+
+        return $collection;
+
     }
 
     /**
