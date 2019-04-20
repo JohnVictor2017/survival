@@ -16,7 +16,7 @@ class Person extends Model
     }
 
     // itens que a pessoa possui
-    public function propertys()
+    public function properties()
     {
         return $this->belongsToMany('App\Models\Property');
     }

@@ -59,7 +59,21 @@ class PersonController extends Controller
             ]);
         }
         */
-        $person = $this->personService->createPerson($request->all());
+        $person = $this->personService->createPerson([
+            'name' => $request->get('name'),
+            'age' => $request->get('age'),
+            'sex' => $request->get('sex'),
+        ]);
+        
+        /*
+        $location = $this->locations->createLocation([
+            'latitude' => $request->get('latitude'),
+            'longitude' => $request->get('longitude'),
+        ]);
+        */
+
+        // TODO Adicionar a localização da pessoa
+        // $person->location()->apend($location);
 
         return $person;
 
