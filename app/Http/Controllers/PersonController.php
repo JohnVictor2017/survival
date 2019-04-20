@@ -67,7 +67,7 @@ class PersonController extends Controller
     }
 
     /**
-     * Report a infected person.
+     * Report an infected person.
      *
      * @return \Illuminate\Http\Response
      */
@@ -76,7 +76,9 @@ class PersonController extends Controller
         $person->flags++;
         $person->save();
      
-        return response('', 204)
+        $collection = collect(['message' => 'infected person successfully reported']);
+
+        return response($collection, 200)
                   ->header('Content-Type', 'text/plain');
     }
 

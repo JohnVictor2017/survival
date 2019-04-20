@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/people', 'PersonController@getPeople');
 Route::post('/people', 'PersonController@createPerson');
-Route::get('/people/{person}/report', 'PersonController@reportInfected');
+Route::put('/people/{person}/report', 'PersonController@reportInfected');
