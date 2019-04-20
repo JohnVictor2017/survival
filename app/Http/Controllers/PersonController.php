@@ -8,11 +8,18 @@ use Illuminate\Support\Collection;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use App\Person;
-use App\Bag;
+use App\Models\Person;
+use App\Services\PersonService;
 
 class PersonController extends Controller
 {
+    protected $personService;
+
+    public function __construct(PersonService $personService)
+    {
+        $this->personService = $personService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -52,17 +59,9 @@ class PersonController extends Controller
             ]);
         }
         */
+        $person = $this->personService->createPerson($request->all());
 
-        $person = Person::create($request->all());
-        
-        $bag = new Bag;
-        $bag->person_id = $person->id;
-        $bag->save();
-
-        // TODO retornar da seguinte forma => {'name': pessoa, ..., 'bag' : {'id': 1, ...}}
-        $collection = collect(['person' => $person, 'bag' => $bag]);
-
-        return $collection;
+        return $person;
 
     }
 
@@ -73,13 +72,7 @@ class PersonController extends Controller
      */
     public function reportInfected(Person $person)
     {
-        $person->flags++;
-        $person->save();
-     
-        $collection = collect(['message' => 'infected person successfully reported']);
-
-        return response($collection, 200)
-                  ->header('Content-Type', 'text/plain');
+        $this->personService->setInfectedPerson($person);
     }
 
     /**

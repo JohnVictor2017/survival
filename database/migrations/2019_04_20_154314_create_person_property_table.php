@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBagsTable extends Migration
+class CreatePersonPropertyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,19 @@ class CreateBagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('bags', function (Blueprint $table) {
+        Schema::create('person_property', function (Blueprint $table) {
             $table->bigIncrements('id');
-
             $table->integer('person_id')->unsigned();
+            $table->integer('property_id')->unsigned();
 
             $table->foreign('person_id')
                 ->references('id')->on('people')
                 ->onDelete('cascade');
+
+            $table->foreign('property_id')
+                ->references('id')->on('properties')
+                ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +36,6 @@ class CreateBagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bags');
+        Schema::dropIfExists('person_property');
     }
 }
