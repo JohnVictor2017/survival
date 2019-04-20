@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/people', 'PersonController@getPeople');
+Route::get('/people/{person}', 'PersonController@getPerson');
 Route::post('/people', 'PersonController@createPerson');
 Route::put('/people/{person}/report', 'PersonController@reportInfected');

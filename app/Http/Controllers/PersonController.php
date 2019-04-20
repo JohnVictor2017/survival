@@ -29,6 +29,15 @@ class PersonController extends Controller
     {
         return Person::orderBy('id', 'ASC')->get();
     }
+    
+    public function getPerson(Person $person)
+    {
+        return [
+            'person' => $person,
+            'properties' => $person->properties()->get()
+
+        ];
+    }
 
     /**
      * Store a newly created resource in storage.
