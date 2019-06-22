@@ -29,6 +29,10 @@ source ~/.bashrc
 
 \$ php artisan serve
 
+# Run databa in docker
+\$ docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5433:5432 -v $HOME/docker/volumes/postgres:/var/lib/postgresql/data  postgres
+
+
 # Challenge the ZSSN (Zombie Survival Social Network)
 
 [GitHub Gist](https://gist.github.com/mauricioklein/1b1f279ad2d9cb42bcf0018e1cf05cfb)
